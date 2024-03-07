@@ -8,12 +8,15 @@ public class Item
   private boolean sold;
   private double currentBid;
 
+  private AuctionTimer timer;
+
   public Item(String name,double startingPrice,double quickBuyPrice){
     this.name = name;
     this.startingPrice = startingPrice;
     this.quickBuyPrice = quickBuyPrice;
     this.sold = false;
     this.currentBid = 0.0;
+    this.timer = new AuctionTimer();
   }
 
   public String getName()
@@ -69,6 +72,8 @@ public class Item
   public void incrementBid(double bid){
     this.currentBid+=bid;
   }
+
+
 
   @Override public String toString()
   {
