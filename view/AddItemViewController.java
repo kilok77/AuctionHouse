@@ -1,9 +1,9 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Region;
+import model.Item;
 import viewmodel.AddItemViewModel;
-
-import javax.swing.plaf.synth.Region;
 
 public class AddItemViewController {
     private ViewHandler viewHandler;
@@ -21,6 +21,10 @@ public class AddItemViewController {
     }
     @FXML
     private void addItem(){
-        model.addItem();
+        model.addItem(new Item("name",90,1000));
+    }
+
+    public Region getRoot() {
+        return root;
     }
 }

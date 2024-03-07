@@ -2,17 +2,16 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import viewmodel.ViewModelFactory;
+import javafx.scene.layout.Region;
 
 public class ViewHandler
 {
     private ViewModelFactory viewModelFactory;
     private Stage primaryStage;
     private Scene currentScene;
-    private ManageVinylViewController manageVinylViewController;
-    private ListVinylViewController listExercisesViewController;
+    private AddItemViewController addItemViewController;
 
     public ViewHandler(ViewModelFactory viewModelFactory)
     {
@@ -23,7 +22,7 @@ public class ViewHandler
     {
         this.primaryStage = primaryStage;
         this.currentScene = new Scene(new Region());
-        openView("list");
+        openView("add");
     }
 
     public void openView(String id)
@@ -31,11 +30,8 @@ public class ViewHandler
         Region root = null;
         switch (id)
         {
-            case "list":
-                root = loadListView("ListVinylView.fxml");
-                break;
-            case "manage":
-                root = loadManageView("ManageVinylView.fxml");
+            case "add":
+                root = loadListView("AddItem.fxml");
                 break;
         }
         currentScene.setRoot(root);
@@ -54,16 +50,16 @@ public class ViewHandler
 
     private Region loadListView(String fxmlFile)
     {
-        if (listExercisesViewController == null)
+        if (addItemViewController == null)
         {
             try
             {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource(fxmlFile));
                 Region root = loader.load();
-                listExercisesViewController = loader.getController();
-                listExercisesViewController
-                        .init(this, viewModelFactory.getListVinylViewModel(), root);
+                addItemViewController = loader.getController();
+                addItemViewController
+                        .init(this, viewModelFactory.getAddItemViewModel(), root);
             }
             catch (Exception e)
             {
@@ -72,33 +68,8 @@ public class ViewHandler
         }
         else
         {
-            listExercisesViewController.reset();
+            addItemViewController.reset();
         }
-        return listExercisesViewController.getRoot();
-    }
-
-    private Region loadManageView(String fxmlFile)
-    {
-        if (manageVinylViewController == null)
-        {
-            try
-            {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource(fxmlFile));
-                Region root = loader.load();
-                manageVinylViewController = loader.getController();
-                manageVinylViewController
-                        .init(this, viewModelFactory.getManageVinylViewModel(), root);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-        else
-        {
-            manageVinylViewController.reset();
-        }
-        return manageVinylViewController.getRoot();
+        return addItemViewController.getRoot();
     }
 }

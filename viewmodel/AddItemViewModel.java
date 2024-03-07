@@ -2,15 +2,16 @@ package viewmodel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Item;
+import model.Model;
 
 public class AddItemViewModel {
-    private Module model;
-
+    private Model model;
     private ObservableList<Item> list;
 
-    public AddItemViewModel(){
+    public AddItemViewModel(Model model){
         this.model = model;
-        items = FXCollections.observableArrayList();
+        list = FXCollections.observableArrayList();
     }
 
     public void addItem(Item item){
